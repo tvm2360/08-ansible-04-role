@@ -40,13 +40,13 @@ classDef rescue stroke:#665352,stroke-width:2px;
   clickhouse-->|Role| clickhouse[clickhouse]
   vector-->|Role| vector[vector]
 
-  lighthouse-->|Role| lighthouse[lighthouse]
+  lighthouse-->|Role| Start
   Start-->|Task| Update_apt_cache0[update apt cache]:::task
   Update_apt_cache0-->|Task| Install_required_packages_and_dependencies1[install required packages and dependencies]:::task
   Install_required_packages_and_dependencies1-->|Task| Clone_repository_lighthouse2[clone repository lighthouse]:::task
   Clone_repository_lighthouse2-->|Task| Get_lighthouse_config__nginx_conf_3[get lighthouse config  nginx conf ]:::task
   Get_lighthouse_config__nginx_conf_3-->|Task| Get_lighthouse_config__lighthouse_conf_4[get lighthouse config  lighthouse conf ]:::task
   Get_lighthouse_config__lighthouse_conf_4-->|Task| Flush_handlers5[flush handlers]:::task
-  Flush_handlers5-->End
+  Flush_handlers5-->lighthouse[lighthouse]
 ```
 
