@@ -38,7 +38,15 @@ classDef includeVars stroke:#8e44ad,stroke-width:2px;
 classDef rescue stroke:#665352,stroke-width:2px;
 
   clickhouse-->|Role| clickhouse[clickhouse]
-  vector-->|Role| vector[vector]
+
+  vector-->|Role| Start
+  Start-->|Task| Get_and_Unarchive_vector_distrib0[get and unarchive vector distrib]:::task
+  Get_and_Unarchive_vector_distrib0-->|Task| Move_vector_directory1[move vector directory]:::task
+  Move_vector_directory1-->|Task| Create_systemd_service_Vector2[create systemd service vector]:::task
+  Create_systemd_service_Vector2-->|Task| Enable_and_start_Vector_service3[enable and start vector service]:::task
+  Enable_and_start_Vector_service3-->|Task| Get_vector_config4[get vector config]:::task
+  Get_vector_config4-->|Task| Flush_handlers5[flush handlers]:::task
+  Flush_handlers5-->vector[vector]
 
   lighthouse-->|Role| Start
   Start-->|Task| Update_apt_cache0[update apt cache]:::task
