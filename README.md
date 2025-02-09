@@ -2,11 +2,11 @@
 Это задание основано на [08-ansible-03-yandex](https://github.com/tvm2360/08-ansible-03-yandex) с применением ролей.
 
 ## Роли
-| Роли                |
-|---------------------|
-| Clickhouse          |
-| Lighthouse          |
-| Vectro              |
+| Роли                | Ссылка                                                       |
+|---------------------|--------------------------------------------------------------|
+| Clickhouse          | https://github.com/AlexeySetevoi/ansible-clickhouse.git      |
+| Lighthouse          | https://github.com/tvm2360/08-ansible-04-role-lighthouse     |
+| Vector              | https://github.com/tvm2360/08-ansible-04-role-vector         |
 
 | Field                | Value           |
 |--------------------- |-----------------|
@@ -16,6 +16,22 @@
 ansible-galaxy install -r requirements.yml -p roles
 ```
 ![GetRoles](./pictures/GetRoles.png)
+
+## requirements.yml
+```ansible
+- src: git@github.com:AlexeySetevoi/ansible-clickhouse.git
+  scm: git
+  version: "1.13"
+  name: clickhouse
+- src: git@github.com:tvm2360/08-ansible-04-role-vector.git
+  scm: git
+  version: "1.0.0"
+  name: vector
+- src: git@github.com:tvm2360/08-ansible-04-role-lighthouse.git
+  scm: git
+  version: "1.0.0"
+  name: lighthouse
+```
 
 ## Сценарии
 
