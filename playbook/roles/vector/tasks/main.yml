@@ -1,0 +1,47 @@
+---
+- name: Get and Unarchive vector distrib
+  become: true
+  ansible.builtin.unarchive:
+    remote_src: yes
+    src: "https://packages.timber.io/vector/{{ vector_version }}/vector-{{ vector_version }}-{{ vector_platform }}-unknown-linux-gnu.tar.gz"
+    dest: "{{ vector_directory }}"
+- name: Move vector directory
+  become: true
+  command: "mv {{ vector_directory }}/vector-{{ vector_platform }}-unknown-linux-gnu {{ vector_directory }}/vector"
+  args:
+    creates: "{{ vector_directory }}/vector"
+- name: Create systemd service Vector
+  become: true
+  copy:
+    dest: /etc/systemd/system/vector.service
+    content: |
+      [Unit]
+      Description=Vector Service
+      After=network.target
+      [Service]
+      ExecStart={{ vector_directory }}/vector/bin/vector --config {{ vector_directory }}/vector/config/vector.yaml
+      Restart=always
+      RestartSec=10
+      User=root
+      WorkingDirectory={{ vector_directory }}/vector
+      [Install]
+      WantedBy=multi-user.target
+- name: Enable and start Vector service
+  become: true
+  systemd:
+    name: vector.service
+    enabled: yes
+    state: started
+    daemon_reload: yes
+- name: Get vector config
+  become: true
+  vars:
+    clickhouse_ip: "{{ vector_clickhouse_ip }}"
+  template:
+    src=./templates/vector.yaml
+    dest="{{ vector_directory }}/vector/config/vector.yaml"
+  notify: Start vector service
+  tags:
+    - restart_vector
+- name: Flush handlers
+  meta: flush_handlers
