@@ -39,8 +39,8 @@ classDef rescue stroke:#665352,stroke-width:2px;
 
   clickhouse-->|Role| clickhouse[clickhouse]
 
-  vector-->|Role| Start
-  Start-->|Task| Get_and_Unarchive_vector_distrib0[get and unarchive vector distrib]:::task
+  vector-->|Role| Start_Vector
+  Start_Vector-->|Task| Get_and_Unarchive_vector_distrib0[get and unarchive vector distrib]:::task
   Get_and_Unarchive_vector_distrib0-->|Task| Move_vector_directory1[move vector directory]:::task
   Move_vector_directory1-->|Task| Create_systemd_service_Vector2[create systemd service vector]:::task
   Create_systemd_service_Vector2-->|Task| Enable_and_start_Vector_service3[enable and start vector service]:::task
@@ -48,13 +48,13 @@ classDef rescue stroke:#665352,stroke-width:2px;
   Get_vector_config4-->|Task| Flush_handlers5[flush handlers]:::task
   Flush_handlers5-->vector[vector]
 
-  lighthouse-->|Role| Start
-  Start-->|Task| Update_apt_cache0[update apt cache]:::task
+  lighthouse-->|Role| Start_Lighthouse
+  Start_Lighthouse-->|Task| Update_apt_cache0[update apt cache]:::task
   Update_apt_cache0-->|Task| Install_required_packages_and_dependencies1[install required packages and dependencies]:::task
   Install_required_packages_and_dependencies1-->|Task| Clone_repository_lighthouse2[clone repository lighthouse]:::task
   Clone_repository_lighthouse2-->|Task| Get_lighthouse_config__nginx_conf_3[get lighthouse config  nginx conf ]:::task
   Get_lighthouse_config__nginx_conf_3-->|Task| Get_lighthouse_config__lighthouse_conf_4[get lighthouse config  lighthouse conf ]:::task
-  Get_lighthouse_config__lighthouse_conf_4-->|Task| Flush_handlers5[flush handlers]:::task
-  Flush_handlers5-->lighthouse[lighthouse]
+  Get_lighthouse_config__lighthouse_conf_4-->|Task| Flush_handlers6[flush handlers]:::task
+  Flush_handlers6-->lighthouse[lighthouse]
 ```
 
