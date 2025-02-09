@@ -12,13 +12,7 @@
 |--------------------- |-----------------|
 | Readme update        | 09/02/2025 |
 
-```bash
-ansible-galaxy install -r requirements.yml -p roles
-```
-![GetRoles](./pictures/GetRoles.png)
-
-## requirements.yml
-```ansible
+``` ansible
 - src: git@github.com:AlexeySetevoi/ansible-clickhouse.git
   scm: git
   version: "1.13"
@@ -33,8 +27,13 @@ ansible-galaxy install -r requirements.yml -p roles
   name: lighthouse
 ```
 
-## Сценарии
+``` bash
+ansible-galaxy install -r requirements.yml -p roles
+```
 
+![GetRoles](./pictures/GetRoles.png)
+
+## Сценарии
 ```yml
 ---
 - name: Install Clickhouse
@@ -73,3 +72,40 @@ classDef rescue stroke:#665352,stroke-width:2px;
 
 ```
 
+## Проверка
+В задании участвуют 3 виртуальные машины (clickhouse, vector, lighthouse) с установленной ОС Ubuntu 20.04
+
+![VM](./pictures/VM.png)
+
+Заполняем в ./playbook/inventory/prod.yml соответствующие значения ansible_host IP виртуальных машин, проверяем
+корректность заполнения порта ssh (по умолчанию 22), а также имя пользователя c правами root и ссылку закрытый ключ:
+
+``` ansible
+clickhouse:
+  hosts:
+    clickhouse-01:
+      ansible_host: 51.250.112.140
+      ansible_port: 22
+      ansible_user: vitas
+      ansible_ssh_private_key_file: "~/.ssh/id_yc_ed25519"
+vector:
+  hosts:
+    vector-01:
+      ansible_host: 130.193.35.244
+      ansible_port: 22
+      ansible_user: vitas
+      ansible_ssh_private_key_file: "~/.ssh/id_yc_ed25519"
+lighthouse:
+  hosts:
+    lighthouse-01:
+      ansible_host: 158.160.158.189
+      ansible_port: 22
+      ansible_user: vitas
+      ansible_ssh_private_key_file: "~/.ssh/id_yc_ed25519"
+```
+
+``` bash
+ansible-playbook -i inventory/prod.yml site.yml --diff
+```
+
+![AnsiblePlaybook](./pictures/AnsiblePlaybook.png)
