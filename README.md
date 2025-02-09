@@ -1,20 +1,21 @@
 # Задание 8-ansible-04-role
-
-Это задание основано на https://github.com/tvm2360/08-ansible-03-yandex
-с применением ролей.
+Это задание основано на [08-ansible-03-yandex](https://github.com/tvm2360/08-ansible-03-yandex) с применением ролей.
 
 ## Роли
-
+| Роли                |
 |---------------------|
 | Clickhouse          |
 | Lighthouse          |
 | Vectro              |
-|---------------------|
-
 
 | Field                | Value           |
 |--------------------- |-----------------|
 | Readme update        | 09/02/2025 |
+
+```bash
+ansible-galaxy install -r requirements.yml -p roles
+```
+![GetRoles](./pictures/GetRoles.png)
 
 ## Сценарии
 
